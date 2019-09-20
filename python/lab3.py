@@ -1,9 +1,9 @@
-'''
-Created on 9/19/19 
+"""
+Created on 9/19/19
 @author:   Jacob Gerega
 Pledge:    I pledge my honor that I have abided by the Stevens Honor System.
 CS115 - Lab 3
-'''
+"""
 
 
 # change: takes in a total coin value and a list of possible coins. returns the smallest combination of coins to create the given value
