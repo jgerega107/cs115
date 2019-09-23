@@ -6,15 +6,19 @@ CS115 - HW 3
 """
 
 
-# change: takes in a total coin value and a list of possible coins. returns the smallest combination of coins to create the given value
+# giveChange: takes in a total coin value and a list of possible coins. returns the smallest combination of coins to create the given value as well as a sublist of all used coins
 def giveChange(amount, coins):
     if amount == 0:
-        return 0
+        return [0, []]
     elif coins == []:
-        return float("inf")
+        return [float("inf"), []]
     elif coins[0] > amount:
         return giveChange(amount, coins[1:])
     else:
-        useIt = 1 + giveChange(amount - coins[0], coins)
-        loseIt = giveChange(amount, coins[1:])
-        return min(useIt, loseIt)
+        useItList = giveChange(amount - coins[0], coins)
+        loseItList = giveChange(amount, coins[1:])
+        minimum = min(useItList[0] + 1, loseItList[0])
+        if minimum == useItList[0] + 1:
+            return [minimum, useItList[1] + [coins[0]]]
+        else:
+            return [minimum, loseItList[1]]
