@@ -21,3 +21,5 @@ for those original values that are less than the threshold."""
 #^^^SEE THE ANSWERS ON CANVAS
 
 
+#remember how to use lambda expressions
+
