@@ -7,3 +7,13 @@ def coin_row(coins):
         evenIndexes = coins[0] + coin_row(coins[2::])
         oddIndexes = coins[1] + coin_row(coins[3::])
         return max(evenIndexes, oddIndexes)
+
+def coin_row_with_values(coins):
+    if coins == []:
+        return 0
+    elif len(coins) == 1:
+        return coins[0]
+    else:
+        evenIndexes = coins[0] + coin_row(coins[2::])
+        oddIndexes = coins[1] + coin_row(coins[3::])
+        return max(evenIndexes, oddIndexes)
