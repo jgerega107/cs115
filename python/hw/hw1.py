@@ -5,7 +5,7 @@ I pledge my honor that I have abided by the Stevens Honor System.
 username: jgerega
 '''
 
-from python.cs115 import map, reduce
+from python.notes.cs115 import map, reduce
 
 def mult(x,y):
     return x*y

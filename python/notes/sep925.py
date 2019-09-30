@@ -5,6 +5,7 @@
 #otherwise, it is called tail recursion if there is no computation
 
 #REVIEW YOUR DEEP REVERSE FUNCTION!!!!!!
+#lab2
 
 """
 PROBLEM 6
@@ -18,6 +19,9 @@ PROBLEM 7
 Assume values is a list of integers that are the squares of the original values
 for those original values that are less than the threshold."""
 
+string1 = "hello"
+
+print(string1[1])
 #^^^SEE THE ANSWERS ON CANVAS
 
 

@@ -6,7 +6,7 @@ Created on Jan 31, 2015
 CS115 - Lab 2 Test Script
 '''
 import unittest
-from python import lab2
+from python.labs import lab2
 
 
 class Test(unittest.TestCase):

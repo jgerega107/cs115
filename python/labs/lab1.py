@@ -1,7 +1,7 @@
 #Jacob Gerega
 #I pledge my honor that I have abided by the Stevens Honor System.
 
-from python.cs115 import map
+from python.notes.cs115 import map
 import math
 
 def inverse(x):
