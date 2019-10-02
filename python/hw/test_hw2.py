@@ -7,7 +7,7 @@ CS115 - Hw 2 Test Script
 '''
 import unittest
 import operator
-from python import hw2
+from python.hw import hw2
 
 
 class Test(unittest.TestCase):
