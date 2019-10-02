@@ -22,4 +22,7 @@ for those original values that are less than the threshold."""
 
 
 #remember how to use lambda expressions
-
+L = ['abcd', 'qr', 'rst', 192, 'ghi', 988]
+M = ['jklm', 90, 'xyz', 7654, 'mnopq', 1287]
+N = range( len(L[2]) )
+print( M[len(N)] )
