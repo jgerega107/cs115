@@ -24,3 +24,5 @@ def fibonacci_memo(n):
             result = fibonacci_memo(n)
         memo[n] = result
         return result
+#if fibonacci_memo(5) is called, its only computed 6 times or so
+
