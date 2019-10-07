@@ -22,4 +22,5 @@ when we add in base 10, when the row goes over or to 10, we carry over to next p
 when we add in base 2(binary), when the row goes over or to 2, we carry over to next place
 
 figure out two's complement
+flip the bits and add one (make zeros ones and ones zeros, then add a 1)
 """
