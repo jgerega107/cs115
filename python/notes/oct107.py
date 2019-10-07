@@ -21,5 +21,5 @@ change 2 to any base to convert to given bases
 when we add in base 10, when the row goes over or to 10, we carry over to next place
 when we add in base 2(binary), when the row goes over or to 2, we carry over to next place
 
-
+figure out two's complement
 """
