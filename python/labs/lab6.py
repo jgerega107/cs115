@@ -7,6 +7,7 @@ CS115 - Lab 6
 '''
 def isOdd(n):
     '''Returns whether or not the integer argument is odd.'''
+    return n % 2 == 1
     pass  # TODO
 
 def numToBinary(n):
