@@ -8,8 +8,27 @@ CS115 - Hw 5
 import turtle  # Needed for graphics
 
 # Ignore 'Undefined variable from import' errors in Eclipse.
+wn = turtle.Screen()
+turtle = turtle.Turtle()
+def snowflakeSide(trunk_length, levels):
+    if levels == 0:
+        turtle.forward(trunk_length)
+    else:
+        snowflakeSide(trunk_length, levels - 1)
+        turtle.left(60)
+        snowflakeSide(trunk_length, levels - 1)
+        turtle.right(120)
+        snowflakeSide(trunk_length, levels - 1)
+        turtle.left(60)
+        snowflakeSide(trunk_length, levels - 1)
 
 def snowflake(trunk_length, levels):
+    snowflakeSide(trunk_length, levels)
+    turtle.right(120)
+    snowflakeSide(trunk_length, levels)
+    turtle.right(120)
+    snowflakeSide(trunk_length, levels)
+    turtle.right(120)
     pass  # TODO
 
 def fast_change(amount, coins):
