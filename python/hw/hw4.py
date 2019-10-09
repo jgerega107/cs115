@@ -1,9 +1,9 @@
 '''
-Created on 10/4/19
+Created on 10/8/19
 @author:   Jacob Gerega
 Pledge:    I pledge my honor that I have abided by the Stevens Honor System
 
-CS115 - Hw 5
+CS115 - Hw 4
 '''
 import turtle  # Needed for graphics
 
@@ -36,6 +36,19 @@ def fast_change(amount, coins):
     Returns the number of coins required to total the given amount.
     Use memoization to improve performance.'''
     def fast_change_helper(amount, coins, memo):
+        if (amount, coins) in memo:
+            return memo[(amount, coins)]
+        if amount == 0:
+            return 0
+        elif coins == ():
+            return float("inf")
+        elif coins[0] > amount:
+            return fast_change_helper(amount, coins[1:], memo)
+        else:
+            useIt = 1 + fast_change_helper(amount - coins[0], coins, memo)
+            loseIt = fast_change_helper(amount, coins[1:], memo)
+            memo[(amount, coins)] = min(useIt, loseIt)
+            return min(useIt, loseIt)
         pass  # Write your code here
 
     # Call the helper. Note we converted the list to a tuple.
