@@ -10,6 +10,8 @@ import turtle  # Needed for graphics
 # Ignore 'Undefined variable from import' errors in Eclipse.
 wn = turtle.Screen()
 turtle = turtle.Turtle()
+
+#snowflakeSide: takes in a trunk length as integer, takes in levels as integer, makes turtle create one side of said length and level
 def snowflakeSide(trunk_length, levels):
     if levels == 0:
         turtle.forward(trunk_length)
@@ -22,6 +24,7 @@ def snowflakeSide(trunk_length, levels):
         turtle.left(60)
         snowflakeSide(trunk_length, levels - 1)
 
+#snowflake: uses previous snowflakeSide with same parameters but puts together sides to create a full snowflake
 def snowflake(trunk_length, levels):
     snowflakeSide(trunk_length, levels)
     turtle.right(120)
@@ -31,6 +34,7 @@ def snowflake(trunk_length, levels):
     turtle.right(120)
     pass  # TODO
 
+#fast_change: takes in an amount and a list of possible coins and returns the minimum number of coins required to get given amount but uses memoization for speed
 def fast_change(amount, coins):
     '''Takes an amount and a list of coin denominations as input.
     Returns the number of coins required to total the given amount.
