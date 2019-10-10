@@ -27,6 +27,8 @@ def binaryToNum(s):
     '''Precondition: s is a string of 0s and 1s.
     Returns the integer corresponding to the binary representation in s.
     Note: the empty string represents 0.'''
+    if len(s) == 0:
+        return 0
     decimalNumber = 0
     indexCounter = 0
     binaryNumberAsInteger = int(s)
@@ -80,6 +82,8 @@ def ternaryToNum(s):
     '''Precondition: s is a string of 0s, 1s, and 2s.
     Returns the integer corresponding to the ternary representation in s.
     Note: the empty string represents 0.'''
+    if len(s) == 0:
+        return 0
     decimalNumber = 0
     indexCounter = 0
     ternaryNumberAsInteger = int(s)
