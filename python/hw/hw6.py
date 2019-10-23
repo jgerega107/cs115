@@ -38,4 +38,9 @@ def add(N1, N2):
     sum = n1dec + n2dec
     return numToBaseB(sum, 2)
 
-#addB
+#addb
+def addHelper(N1, N2, carry):
+    if not N1 or N2:
+        return "0"
+    elif
+
