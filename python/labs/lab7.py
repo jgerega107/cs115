@@ -16,14 +16,14 @@
 def rod_cutter(values, n):
     if values == []:
         return 0
-    elif n == 0:
-        return values[0]
+    elif n <= 0:
+        return 0
     elif len(values) == 1:
         return values[0][1]
     else:
-        evenIndexes = values[0][1] + rod_cutter(values[2:], n)
-        oddIndexes = rod_cutter(values[1:], n)
-        return max(evenIndexes, oddIndexes)
+        useIt = values[0][1] + rod_cutter(values, n - values[0][0])
+        loseIt = rod_cutter(values[1:], n)
+        return max(useIt, loseIt)
 
 def rod_cutter_with_values(values, n):
     if values == []:
