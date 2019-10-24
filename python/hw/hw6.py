@@ -63,5 +63,3 @@ def addWithCarry(N1, N2, carryIn):
     else:
         sumBit, carryBit = FullAdder[(N1[-1], N2[-1], carryIn)]
         return addWithCarry(N1[:-1], N2[:-1], carryBit) + sumBit
-
-print(addB("11", "1"))
