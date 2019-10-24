@@ -16,10 +16,10 @@
 def rod_cutter(values, n):
     if values == []:
         return 0
+    elif values[0][0] > n:
+        return rod_cutter(values[1:], n)
     elif n <= 0:
         return 0
-    elif len(values) == 1:
-        return values[0][1]
     else:
         useIt = values[0][1] + rod_cutter(values, n - values[0][0])
         loseIt = rod_cutter(values[1:], n)
@@ -27,9 +27,20 @@ def rod_cutter(values, n):
 
 def rod_cutter_with_values(values, n):
     if values == []:
-        return [0, []]
-    elif len(values) == 1:
+        return (0, [])
+    elif values[0][0] > n:
+        return rod_cutter_with_values(values[1:], n)
+    elif n <= 0:
         return values[0]
+    else:
+        useIt = rod_cutter_with_values(values, n - values[0][0])
+        loseIt = rod_cutter_with_values(values[1:], n)
+        maximum = max(useIt[0] + values[0][1], loseIt[0])
+        if maximum == useIt[0] + values[0][1]:
+            return [maximum, [values[0][1]] + useIt[1]]
+        else:
+            return [maximum, loseIt[1]]
+
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Code to test your work. DO NOT TOUCH.
@@ -48,7 +59,7 @@ def test(test_num, function, input1, input2, expected_output):
             print('Test %d failed: %s(%s, %s) should be %s.' %
                   (test_num, function.__name__, input1, input2, expected_output))
             print('   -- Received %s.' % str(received))
-
+"""
 test(1, rod_cutter, [], 10, 0)
 test(2, rod_cutter, [[1, 1]], 1, 1)
 test(3, rod_cutter, [[1, 1], [2, 3]], 2, 3)
@@ -59,8 +70,9 @@ test(7, rod_cutter, [[1, 1], [2, 5], [3, 8], [4, 9], [5, 10], [6, 17], [7, 17], 
 test(8, rod_cutter, [[1, 1], [2, 5], [3, 8], [4, 9], [5, 10], [6, 17], [7, 17], [8, 20]], 15, 42)
 test(9, rod_cutter, [[1, 1], [2, 5], [3, 8], [4, 9], [5, 10], [6, 17], [7, 17], [8, 20]], 23, 64)
 test(10, rod_cutter, [[1, 1], [2, 5], [3, 8], [4, 9], [5, 10], [6, 17], [7, 17], [8, 20]], 29, 81)
+"""
 
-'''
+
 test(11, rod_cutter_with_values, [], 10, (0, []))
 test(12, rod_cutter_with_values, [[1, 1]], 1, (1, [1]))
 test(13, rod_cutter_with_values, [[1, 1], [2, 3]], 2, (3, [2]))
@@ -71,4 +83,3 @@ test(17, rod_cutter_with_values, [[1, 1], [2, 5], [3, 8], [4, 9], [5, 10], [6, 1
 test(18, rod_cutter_with_values, [[1, 1], [2, 5], [3, 8], [4, 9], [5, 10], [6, 17], [7, 17], [8, 20]], 15, (42, [6, 6, 3]))
 test(19, rod_cutter_with_values, [[1, 1], [2, 5], [3, 8], [4, 9], [5, 10], [6, 17], [7, 17], [8, 20]], 23, (64, [6, 6, 6, 3, 2]))
 test(20, rod_cutter_with_values, [[1, 1], [2, 5], [3, 8], [4, 9], [5, 10], [6, 17], [7, 17], [8, 20]], 29, (81, [6, 6, 6, 6, 3, 2]))
-'''
