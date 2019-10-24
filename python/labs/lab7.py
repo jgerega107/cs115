@@ -16,6 +16,8 @@
 def rod_cutter(values, n):
     if values == []:
         return 0
+    elif n == 0:
+        return values[0]
     elif len(values) == 1:
         return values[0][1]
     else:

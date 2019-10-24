@@ -38,4 +38,30 @@ def add(N1, N2):
     sum = n1dec + n2dec
     return numToBaseB(sum, 2)
 
-#addB
+def addB(N1, N2):
+    if not N1 and not N2:
+        return "0"
+    else:
+        return addWithCarry(N1, N2, "0")
+
+
+def addWithCarry(N1, N2, carryIn):
+    if N1 == "0" and not N2:
+        return carryIn
+    elif not N1 and N2 == "0":
+        return carryIn
+    elif not N1 and not N2 and carryIn == 1:
+        return carryIn
+    elif not N1 and not N2:
+        return ""
+    elif not N2 and N1:
+        sumBit, carryBit = FullAdder[(N1[-1], "0", carryIn)]
+        return addWithCarry(N1[:-1], "0", carryIn) + sumBit
+    elif not N1 and N2:
+        sumBit, carryBit = FullAdder[("0", N2[-1], carryIn)]
+        return addWithCarry("0", N2[:-1], carryIn) + sumBit
+    else:
+        sumBit, carryBit = FullAdder[(N1[-1], N2[-1], carryIn)]
+        return addWithCarry(N1[:-1], N2[:-1], carryBit) + sumBit
+
+print(addB("11", "1"))
