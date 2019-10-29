@@ -31,6 +31,5 @@ class Test(unittest.TestCase):
         self.assertEqual(hw7.NumToTc(64), '01000000')
         self.assertEqual(hw7.NumToTc(126), '01111110')
         self.assertEqual(hw7.NumToTc(127), '01111111')
-
 if __name__ == "__main__":
     unittest.main()
