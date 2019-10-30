@@ -41,4 +41,9 @@ def numToBaseB(N, B):
     else:
         return numToBaseB(N // B, B) + str(N % B)
 
-print(TcToNum("10000000"))
+def fillBits(N):
+    if not len(N) < 8:
+        neededZeros = 8 - len(N)
+        return ("0" * neededZeros + N)
+    else:
+        return N
