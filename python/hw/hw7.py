@@ -48,12 +48,11 @@ def fillBits(N):
 
 def NumToTc(num):
     if num < 0:
-        binaryStr = fillBits(numToBaseB(num*-1, 2))
-        tc = add(TcToNumHelper(binaryStr), '1')
+        binaryStr = numToBaseB(num*-1, 2)
+        tc = fillBits(add(TcToNumHelper(binaryStr), '1'))
         return tc
     else:
         binaryStr = fillBits(numToBaseB(num, 2))
         return binaryStr
 
-
-print(NumToTc(-129))
+print(NumToTc(255))
