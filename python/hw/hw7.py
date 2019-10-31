@@ -8,7 +8,6 @@ def TcToNum(binaryStr):
     else:
         return baseBToNum(binaryStr, 2)
 
-
 def TcToNumHelper(binaryStr):
     if not binaryStr:
         return ''
@@ -18,22 +17,13 @@ def TcToNumHelper(binaryStr):
         else:
             return '1' + TcToNumHelper(binaryStr[1:])
 
-def NumToTc(num):
-    if num > 0:
-        return fillBits(numToBaseB(num, 2))
-    else:
-        tc = fillBits(add(TcToNumHelper(numToBaseB(num, 2)), '1'))
-        if len(tc) > 8:
-            return 'Error'
-        return tc
-
 def isBinNeg(binaryStr):
     if binaryStr[0] == '1':
         return True
     return False
 
 def baseBToNum(N, B):
-    if len(N) <= 0:
+    if len(N) == 0:
         return 0
     else:
         return int(int(N[0]) * math.pow(B, len(N)-1)) + baseBToNum(N[1:], B)
@@ -53,8 +43,17 @@ def numToBaseB(N, B):
 def fillBits(N):
     if len(N) < 8:
         neededZeros = 8 - len(N)
-        return ("0" * neededZeros + N)
-    else:
-        return N
+        return "0" * neededZeros + N
+    return N
 
-print(NumToTc(128))
+def NumToTc(num):
+    if num < 0:
+        binaryStr = fillBits(numToBaseB(num*-1, 2))
+        tc = add(TcToNumHelper(binaryStr), '1')
+        return tc
+    else:
+        binaryStr = fillBits(numToBaseB(num, 2))
+        return binaryStr
+
+
+print(NumToTc(-129))
