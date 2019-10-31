@@ -50,9 +50,14 @@ def NumToTc(num):
     if num < 0:
         binaryStr = fillBits(numToBaseB(num*-1, 2))
         tc = TcToNumHelper(binaryStr)
-        return add(tc, '1')
+        tcp2 = add(tc, '1')
+        if len(tcp2) > 8:
+            return 'Error'
+        return tcp2
     else:
         binaryStr = fillBits(numToBaseB(num, 2))
+        if len(binaryStr) > 8:
+            return 'Error'
         return binaryStr
 
-print(NumToTc(127))
+print(NumToTc(128))
