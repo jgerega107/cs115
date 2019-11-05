@@ -140,12 +140,13 @@ def wordsWithScore(dct, scores):
     with its value. For example, wordsWithScore(scrabbleScores, aDictionary)
     should return [["a", 1], ["am", 4], ["at", 2] ...etc... ]'''
     def scoreWord(wrd):
-        return [wrd, wordScore(wrd, scores) ]
+        return [wrd, wordScore(wrd, scores)]
 
     return map(scoreWord, dct)
 
 def wordsWithScoreLambda(dct, scores):
     '''Same as wordsWithScore'''
+    return map(lambda x: [x, wordScore(x, scores)], dct)
     pass  # TODO
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -155,4 +156,8 @@ def wordsWithScoreLambda(dct, scores):
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def wordsWithScoreLoop(dct, scores):
     '''Same as wordsWithScore'''
+    list1 = []
+    for x in dct:
+        list1 += [[x, wordScore(x, scores)]]
+    return list1
     pass  # TODO
