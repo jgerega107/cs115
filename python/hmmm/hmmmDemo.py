@@ -10,18 +10,25 @@ import importlib
 # Also requires hmmmAssembler.py and hmmmSimulator.py to
 # be available in the same directory as this file.
 
+"""
+Jacob Gerega
+10/31/19
+I pledge my honor that I have abided by the Stevens Honor System.
+"""
+
+
 fibonacci = """
-00 read r1
-01 setn r2 0
-02 setn r3 1
-03 jeqzn r1 10
-04 write r2
-05 add r4 r3 r2
-06 copy r2 r3
-07 copy r3 r4
-08 addn r1 -1
-09 jumpn 3
-10 halt
+00 read r1 # read user input
+01 setn r2 0 # set r2 register to zero
+02 setn r3 1 # set r3 register to one
+03 jeqzn r1 10 # begin conditional loop
+04 write r2 # print register r2
+05 add r4 r3 r2 # add registers together and store in r4 register
+06 copy r2 r3 # copy register r3 to register r2
+07 copy r3 r4 # copy register r4 to register r3
+08 addn r1 -1 # subtract one from register r1 to decrement the loop counter
+09 jumpn 3 # end of loop, go back to line three
+10 halt # end of program
 """
 
 
