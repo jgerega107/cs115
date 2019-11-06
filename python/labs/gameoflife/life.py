@@ -81,3 +81,43 @@ def innerReverse(A):
 
     return B
 
+def next_life_generation(A):
+    rows = len(A)
+    cols = len(A[0])
+    B = copy(A)
+    for row in range(1, rows - 1):
+        for col in range(1, cols - 1):
+            if B[row][col] == 1:
+                if countNeighbors(row, col, A) < 2 or countNeighbors(row, col, A) > 3:
+                    B[row][col] = 0
+                else:
+                    B[row][col] = 1
+            else:
+                if countNeighbors(row, col, A) == 3:
+                    B[row][col] = 1
+                else:
+                    B[row][col] = 0
+    return B
+
+def countNeighbors(row, col, A):
+    liveNeighbors = 0
+    #left and right
+    if A[row+1][col] == 1:
+        liveNeighbors+=1
+    if A[row-1][col] == 1:
+        liveNeighbors+=1
+    #corners
+    if A[row-1][col-1] == 1:
+        liveNeighbors += 1
+    if A[row+1][col+1] == 1:
+        liveNeighbors += 1
+    if A[row+1][col-1] == 1:
+        liveNeighbors += 1
+    if A[row-1][col+1] == 1:
+        liveNeighbors += 1
+    #above and below
+    if A[row][col+1] == 1:
+        liveNeighbors += 1
+    if A[row][col-1] == 1:
+        liveNeighbors += 1
+    return liveNeighbors
