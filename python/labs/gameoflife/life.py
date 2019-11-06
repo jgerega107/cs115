@@ -58,3 +58,26 @@ def randomCells(width, height):
 
     return A
 
+def copy(A):
+    rows = len(A)
+    cols = len(A[0])
+    B = createBoard(rows, cols)
+    for row in range(rows):
+        for col in range(cols):
+            B[row][col] = A[row][col]
+
+    return B
+
+def innerReverse(A):
+    rows = len(A)
+    cols = len(A[0])
+    B = copy(A)
+    for row in range(1, rows - 1):
+        for col in range(1, cols - 1):
+            if B[row][col] == 1:
+                B[row][col] = 0
+            else:
+                B[row][col] = 1
+
+    return B
+
