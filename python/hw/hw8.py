@@ -1,6 +1,6 @@
 '''
-@author:
-Pledge:
+@author: Jacob Gerega
+Pledge: I pledge my honor that I have abided by the Stevens Honor System.
 
 CS115 - Hw 8
 

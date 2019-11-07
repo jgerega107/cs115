@@ -1,8 +1,8 @@
 #
 # life.py - Game of Life lab
 #
-# Name:
-# Pledge:
+# Name: Jacob Gerega
+# Pledge: I pledge my honor that I have abided by the Stevens Honor System.
 #
 
 import sys, random
