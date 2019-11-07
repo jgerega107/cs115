@@ -16,18 +16,21 @@ def createOneRow(width):
         row += [0]
     return row
 
+#createBoard: takes in a width and height, returns a 2D array of zeros
 def createBoard(width, height):
     arr = []
     for row in range(height):
         arr += [createOneRow(width)]
     return arr
 
+#printBoard: takes in a 2D array board and prints it correctly instead of one line
 def printBoard(A):
     for row in A:
         for col in row:
             sys.stdout.write(str(col))
         sys.stdout.write('\n')
 
+#diagonalize: takes in a width and a height and returns a board with ones going diagonally through it
 def diagonalize(width, height):
     A = createBoard(width, height)
     for row in range(height):
@@ -39,6 +42,7 @@ def diagonalize(width, height):
 
     return A
 
+#innerCells: takes in a width and a height and returns a board filled with ones except the outer border.
 def innerCells(width, height):
     A = createBoard(width, height)
     for row in range(1, height-1):
@@ -50,6 +54,7 @@ def innerCells(width, height):
 
     return A
 
+#randomCells: takes in a width and a height and returns a board filled randomly with ones while still staying inside the border
 def randomCells(width, height):
     A = createBoard(width, height)
     for row in range(1, height - 1):
@@ -58,6 +63,7 @@ def randomCells(width, height):
 
     return A
 
+#copy: takes in a said board and constructs a said board based on same specifications and contents without making the new board a memory reference to the older board.
 def copy(A):
     rows = len(A)
     cols = len(A[0])
@@ -68,6 +74,7 @@ def copy(A):
 
     return B
 
+#innerReverse: takes in a board and reverses the contents while still acknowledging the border
 def innerReverse(A):
     rows = len(A)
     cols = len(A[0])
@@ -81,6 +88,7 @@ def innerReverse(A):
 
     return B
 
+#next_life_generation: takes in a board and brings the said board to the next generation of life according to the given rules for life and death
 def next_life_generation(A):
     rows = len(A)
     cols = len(A[0])
@@ -99,6 +107,7 @@ def next_life_generation(A):
                     B[row][col] = 0
     return B
 
+#countNeighbors: helper method for next_life_generation, counts how many live neighbors are around a given cell
 def countNeighbors(row, col, A):
     liveNeighbors = 0
     #left and right
