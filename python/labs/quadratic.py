@@ -61,6 +61,7 @@ class QuadraticEquation:
         else:
             bterm += str(bpos) + "x"
 
+        #create return string
         cterm += str(cpos)
         if cpos == 0 and bpos == 0:
             return aterm + " = 0"
