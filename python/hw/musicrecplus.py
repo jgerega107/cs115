@@ -46,7 +46,7 @@ def savepreferences(username, prefs, userdb, filename):
     userdb[username] = prefs
     file = open(filename, 'w')
     for user in userdb:
-        toSave = str(user) + ":" + "".join(userdb[user] + ) + "\n"
+        toSave = str(user) + ":" + ",".join(userdb[user]) + "\n"
         file.write(toSave)
     file.close()
 
