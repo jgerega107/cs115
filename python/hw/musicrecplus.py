@@ -24,10 +24,10 @@ def readusers(username, userdb):
     #new user, ask for recommendations
     else:
         while True:
-            prefs.append(newPref.strip().title())
             newPref = input("Enter an artist that you like (Enter to finish):")
+            prefs.append(newPref.strip().title())
             if not newPref:
-                savepreferences(username, prefs, userdb, DATABASE)
+                saveUserPreferences(username, prefs, userdb, DATABASE)
                 break
     prefs.sort()
     return prefs
@@ -42,11 +42,14 @@ def showmenu():
     choice = input("q - Save and quit")
     #if choice == blah then do said action
 
-def savepreferences(username, prefs, userdb, filename):
-    userdb[username] = prefs
-    file = open(filename, 'w')
-    for user in userdb:
-        toSave = str(user) + ":" + ",".join(userdb[user]) + "\n"
+def saveUserPreferences(userName, prefs, userMap, fileName):
+    ''' Writes all of the user preferences to the file.
+        Returns nothing. '''
+    userMap[userName] = prefs
+    file = open(fileName, "w")
+    for user in userMap:
+        toSave = str(user) + ":" + ",".join(userMap[user]) + \
+                    "\n"
         file.write(toSave)
     file.close()
 
