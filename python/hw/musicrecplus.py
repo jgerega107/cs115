@@ -21,7 +21,9 @@ def main():
             if not recommendations:
                 print("No recommendations available at this time.")
             else:
-                print(str(recommendations))
+                print(", ".join(recommendations))
+        elif choice == "p":
+            """popular method"""
         elif choice == "q":
             savepreferences(username, prefs, userdb, DATABASE)
     # if choice == blah then do said action
@@ -108,6 +110,8 @@ def drop(list1, list2):
 
 def getrecommendations(currUser, prefs, userMap):
     bestUser = findBestUser(currUser, prefs, userMap)
+    if type(bestUser) == type(None):
+        return ""
     recommendations = drop(prefs, userMap[bestUser])
     return recommendations
 
@@ -116,10 +120,17 @@ def findBestUser(currUser, prefs, userMap):
     bestUser = None
     bestScore = -1
     for user in users:
-        score = nummatches(prefs, userMap[user])
-        if score > bestScore and currUser != user:
-            bestScore = score
-            bestUser = user
+        lastIndex = len(user)
+        if user[lastIndex-1] != "$":
+            score = nummatches(prefs, userMap[user])
+            if score > bestScore and currUser != user:
+                bestScore = score
+                bestUser = user
     return bestUser
+
+def findMostHits(userMap):
+    bestScore = -1
+    users = userMap.keys()
+
 
 if __name__ == "__main__": main()
