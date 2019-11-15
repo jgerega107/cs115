@@ -1,9 +1,26 @@
 DATABASE = "musicrecplus.txt"
+#main program loop
 def main():
     userdb = loadusers()
     username = input("Enter your name (put a $ symbol after your name if you wish your preferences to remain private):")
-    readusers(username, userdb)
+    prefs = readusers(username, userdb)
+    choice = ""
+    while choice != "q":
+        print("Enter a letter to choose an option:")
+        print("e - Enter preferences")
+        print("r - Get recommendations")
+        print("p - Show most popular artists")
+        print("h - How popular is the most popular")
+        print("m - Which user has the most likes")
+        print("q - Save and quit")
+        choice = input()
+        if choice == "e":
+            prefs = enterpreferences(username, userdb)
+        if choice == "q":
+            savepreferences(username, prefs, userdb, DATABASE)
+    # if choice == blah then do said action
 
+#background functions
 def loadusers():
     file = open(DATABASE, 'r')
     userfile = {}
@@ -18,33 +35,18 @@ def loadusers():
 def readusers(username, userdb):
     newPref = ""
     prefs = []
-    #existing user, goto menu
-    if username in userdb:
-        showmenu()
     #new user, ask for recommendations
-    else:
+    if username not in userdb:
         while True:
             newPref = input("Enter an artist that you like (Enter to finish):")
-            prefs.append(newPref.strip().title())
             if not newPref:
-                saveUserPreferences(username, prefs, userdb, DATABASE)
                 break
+            else:
+                prefs.append(newPref.strip().title())
     prefs.sort()
     return prefs
 
-def showmenu():
-    print("Enter a letter to choose an option:")
-    print("e - Enter preferences")
-    print("r - Get recommendations")
-    print("p - Show most popular artists")
-    print("h - How popular is the most popular")
-    print("m - Which user has the most likes")
-    choice = input("q - Save and quit")
-    #if choice == blah then do said action
-
-def saveUserPreferences(userName, prefs, userMap, fileName):
-    ''' Writes all of the user preferences to the file.
-        Returns nothing. '''
+def savepreferences(userName, prefs, userMap, fileName):
     userMap[userName] = prefs
     file = open(fileName, "w")
     for user in userMap:
@@ -52,5 +54,19 @@ def saveUserPreferences(userName, prefs, userMap, fileName):
                     "\n"
         file.write(toSave)
     file.close()
+
+#begin menu items
+def enterpreferences(username, userdb):
+    newPref = ""
+    prefs = []
+    while True:
+        newPref = input("Enter an artist that you like (Enter to finish):")
+        if not newPref:
+            savepreferences(username, prefs, userdb, DATABASE)
+            break
+        else:
+            prefs.append(newPref.strip().title())
+    prefs.sort()
+    return prefs
 
 if __name__ == "__main__": main()
