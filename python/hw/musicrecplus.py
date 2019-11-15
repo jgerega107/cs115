@@ -16,7 +16,13 @@ def main():
         choice = input()
         if choice == "e":
             prefs = enterpreferences(username, userdb)
-        if choice == "q":
+        elif choice == "r":
+            recommendations = getrecommendations(username, prefs, userdb)
+            if not recommendations:
+                print("No recommendations available at this time.")
+            else:
+                print(str(recommendations))
+        elif choice == "q":
             savepreferences(username, prefs, userdb, DATABASE)
     # if choice == blah then do said action
 
@@ -68,5 +74,52 @@ def enterpreferences(username, userdb):
             prefs.append(newPref.strip().title())
     prefs.sort()
     return prefs
+
+def nummatches(list1, list2):
+    matches = 0
+    i = 0
+    j = 0
+    while i < len(list1) and j < len(list2):
+        if list1[i] == list2[j]:
+            matches += 1
+            i += 1
+            j += 1
+        elif list1[i] < list2[j]:
+            i += 1
+        else:
+            j += 1
+    return matches
+
+def drop(list1, list2):
+    list3 = []
+    i = 0
+    j = 0
+    while i < len(list1) and j < len(list2):
+        if list1[i] == list2[j]:
+            i += 1
+            j += 1
+        elif list1[i] < list2[j]:
+            i += 1
+        else:
+            list3.append(list2[j])
+            j += 1
+
+    return list3
+
+def getrecommendations(currUser, prefs, userMap):
+    bestUser = findBestUser(currUser, prefs, userMap)
+    recommendations = drop(prefs, userMap[bestUser])
+    return recommendations
+
+def findBestUser(currUser, prefs, userMap):
+    users = userMap.keys()
+    bestUser = None
+    bestScore = -1
+    for user in users:
+        score = nummatches(prefs, userMap[user])
+        if score > bestScore and currUser != user:
+            bestScore = score
+            bestUser = user
+    return bestUser
 
 if __name__ == "__main__": main()
