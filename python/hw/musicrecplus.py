@@ -6,6 +6,7 @@ def main():
     userdb = loadUsers()
     username = input("Enter your name (put a $ symbol after your name if you wish your preferences to remain private):")
     prefs = readUsers(username, userdb)
+    userdb[username] = prefs
     choice = ""
     while choice != "q":
         print("Enter a letter to choose an option:")
@@ -18,6 +19,7 @@ def main():
         choice = input()
         if choice == "e":
             prefs = enterPreferences(username, userdb)
+            userdb[username] = prefs
         elif choice == "r":
             getRecommendations(username, prefs, userdb)
         elif choice == "p":
@@ -28,10 +30,6 @@ def main():
             findMostLikesUser(userdb)
         elif choice == "q":
             savePreferences(username, prefs, userdb, DATABASE)
-    # if choice == blah then do said action
-
-#background functions
-
 
 def loadUsers():
     file = open(DATABASE, 'r')
@@ -71,8 +69,6 @@ def savePreferences(userName, prefs, userMap, fileName):
                     "\n"
         file.write(toSave)
     file.close()
-
-#begin menu items
 
 
 def enterPreferences(username, userdb):
@@ -124,12 +120,10 @@ def drop(list1, list2):
 
 def getRecommendations(currUser, prefs, userMap):
     bestUser = findBestUser(currUser, prefs, userMap)
-    if type(bestUser) is None:
-        return ""
-    recommendations = drop(prefs, userMap[bestUser])
-    if not recommendations:
+    if type(bestUser) is None or userMap[bestUser] is None:
         print("No recommendations available at this time.")
     else:
+        recommendations = drop(prefs, userMap[bestUser])
         for recommendation in recommendations:
             print(recommendation)
 
@@ -154,7 +148,6 @@ def isUserNotPrivate(username):
     return False
 
 
-#helper methods for finding most popular artist(s)
 def putRecommendationsTogether(userMap):
     addedList = []
     for user in userMap:
@@ -191,9 +184,11 @@ def findMostPopularArtists(userMap):
         for artist in mostPopularArtists:
             print(artist)
 
+
 def findMostPopularArtistHitCount(userMap):
     combinedList = putRecommendationsTogether(userMap)
     print(findMostPopularArtistHitCountHelper(combinedList))
+
 
 def findMostLikesUserHelper(userMap):
     highestLikeCount = -1
@@ -201,6 +196,7 @@ def findMostLikesUserHelper(userMap):
         if len(userMap[user]) > highestLikeCount:
             highestLikeCount = len(userMap[user])
     return highestLikeCount
+
 
 def findMostLikesUser(userMap):
     likeCount = findMostLikesUserHelper(userMap)
