@@ -1,9 +1,11 @@
 DATABASE = "musicrecplus.txt"
 #main program loop
+
+
 def main():
-    userdb = loadusers()
+    userdb = loadUsers()
     username = input("Enter your name (put a $ symbol after your name if you wish your preferences to remain private):")
-    prefs = readusers(username, userdb)
+    prefs = readUsers(username, userdb)
     choice = ""
     while choice != "q":
         print("Enter a letter to choose an option:")
@@ -15,21 +17,23 @@ def main():
         print("q - Save and quit")
         choice = input()
         if choice == "e":
-            prefs = enterpreferences(username, userdb)
+            prefs = enterPreferences(username, userdb)
         elif choice == "r":
-            recommendations = getrecommendations(username, prefs, userdb)
+            recommendations = getRecommendations(username, prefs, userdb)
             if not recommendations:
                 print("No recommendations available at this time.")
             else:
                 print(", ".join(recommendations))
         elif choice == "p":
-            """popular method"""
+            findMostPopularArtists(userdb)
         elif choice == "q":
-            savepreferences(username, prefs, userdb, DATABASE)
+            savePreferences(username, prefs, userdb, DATABASE)
     # if choice == blah then do said action
 
 #background functions
-def loadusers():
+
+
+def loadUsers():
     file = open(DATABASE, 'r')
     userfile = {}
     for line in file:
@@ -40,7 +44,8 @@ def loadusers():
     file.close()
     return userfile
 
-def readusers(username, userdb):
+
+def readUsers(username, userdb):
     newPref = ""
     prefs = []
     #new user, ask for recommendations
@@ -54,7 +59,8 @@ def readusers(username, userdb):
     prefs.sort()
     return prefs
 
-def savepreferences(userName, prefs, userMap, fileName):
+
+def savePreferences(userName, prefs, userMap, fileName):
     userMap[userName] = prefs
     file = open(fileName, "w")
     for user in userMap:
@@ -64,20 +70,23 @@ def savepreferences(userName, prefs, userMap, fileName):
     file.close()
 
 #begin menu items
-def enterpreferences(username, userdb):
+
+
+def enterPreferences(username, userdb):
     newPref = ""
     prefs = []
     while True:
         newPref = input("Enter an artist that you like (Enter to finish):")
         if not newPref:
-            savepreferences(username, prefs, userdb, DATABASE)
+            savePreferences(username, prefs, userdb, DATABASE)
             break
         else:
             prefs.append(newPref.strip().title())
     prefs.sort()
     return prefs
 
-def nummatches(list1, list2):
+
+def numMatches(list1, list2):
     matches = 0
     i = 0
     j = 0
@@ -91,6 +100,7 @@ def nummatches(list1, list2):
         else:
             j += 1
     return matches
+
 
 def drop(list1, list2):
     list3 = []
@@ -108,29 +118,72 @@ def drop(list1, list2):
 
     return list3
 
-def getrecommendations(currUser, prefs, userMap):
+
+def getRecommendations(currUser, prefs, userMap):
     bestUser = findBestUser(currUser, prefs, userMap)
     if type(bestUser) == type(None):
         return ""
     recommendations = drop(prefs, userMap[bestUser])
     return recommendations
 
+
 def findBestUser(currUser, prefs, userMap):
     users = userMap.keys()
     bestUser = None
     bestScore = -1
     for user in users:
-        lastIndex = len(user)
-        if user[lastIndex-1] != "$":
-            score = nummatches(prefs, userMap[user])
+        if isUserNotPrivate(user):
+            score = numMatches(prefs, userMap[user])
             if score > bestScore and currUser != user:
                 bestScore = score
                 bestUser = user
     return bestUser
 
-def findMostHits(userMap):
-    bestScore = -1
-    users = userMap.keys()
+
+def isUserNotPrivate(username):
+    lastIndex = len(username)
+    if username[lastIndex-1] != "$":
+        return True
+    return False
+
+
+#helper methods for finding most popular artist(s)
+def putRecommendationsTogether(userMap):
+    addedList = []
+    for user in userMap:
+        if isUserNotPrivate(user):
+            addedList += userMap[user]
+    addedList.sort()
+    return addedList
+
+
+def findMostPopularArtistsHelper(artists, hits):
+    mostPopularArtists = []
+    for artist in artists:
+        if artists.count(artist) == hits and artist not in mostPopularArtists:
+            mostPopularArtists += [artist]
+    return mostPopularArtists
+
+
+def findMostPopularArtistHitCount(artists):
+    highestCount = -1
+    for artist in artists:
+        count = artists.count(artist)
+        if count > highestCount:
+            highestCount = count
+    return highestCount
+
+
+def findMostPopularArtists(userMap):
+    combinedList = putRecommendationsTogether(userMap)
+    hitCount = findMostPopularArtistHitCount(combinedList)
+    mostPopularArtists = findMostPopularArtistsHelper(combinedList, hitCount)
+    if not mostPopularArtists:
+        print("Sorry, no artists found.")
+    else:
+        for artist in mostPopularArtists:
+            print(artist)
+
 
 
 if __name__ == "__main__": main()
