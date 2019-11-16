@@ -19,13 +19,13 @@ def main():
         if choice == "e":
             prefs = enterPreferences(username, userdb)
         elif choice == "r":
-            recommendations = getRecommendations(username, prefs, userdb)
-            if not recommendations:
-                print("No recommendations available at this time.")
-            else:
-                print(", ".join(recommendations))
+            getRecommendations(username, prefs, userdb)
         elif choice == "p":
             findMostPopularArtists(userdb)
+        elif choice == "h":
+            findMostPopularArtistHitCount(userdb)
+        elif choice == "m":
+            findMostLikesUser(userdb)
         elif choice == "q":
             savePreferences(username, prefs, userdb, DATABASE)
     # if choice == blah then do said action
@@ -56,6 +56,9 @@ def readUsers(username, userdb):
                 break
             else:
                 prefs.append(newPref.strip().title())
+    #existing user
+    else:
+        prefs = userdb[username]
     prefs.sort()
     return prefs
 
@@ -121,10 +124,14 @@ def drop(list1, list2):
 
 def getRecommendations(currUser, prefs, userMap):
     bestUser = findBestUser(currUser, prefs, userMap)
-    if type(bestUser) == type(None):
+    if type(bestUser) is None:
         return ""
     recommendations = drop(prefs, userMap[bestUser])
-    return recommendations
+    if not recommendations:
+        print("No recommendations available at this time.")
+    else:
+        for recommendation in recommendations:
+            print(recommendation)
 
 
 def findBestUser(currUser, prefs, userMap):
@@ -132,7 +139,7 @@ def findBestUser(currUser, prefs, userMap):
     bestUser = None
     bestScore = -1
     for user in users:
-        if isUserNotPrivate(user):
+        if isUserNotPrivate(user) and userMap[user] != prefs:
             score = numMatches(prefs, userMap[user])
             if score > bestScore and currUser != user:
                 bestScore = score
@@ -165,7 +172,7 @@ def findMostPopularArtistsHelper(artists, hits):
     return mostPopularArtists
 
 
-def findMostPopularArtistHitCount(artists):
+def findMostPopularArtistHitCountHelper(artists):
     highestCount = -1
     for artist in artists:
         count = artists.count(artist)
@@ -176,7 +183,7 @@ def findMostPopularArtistHitCount(artists):
 
 def findMostPopularArtists(userMap):
     combinedList = putRecommendationsTogether(userMap)
-    hitCount = findMostPopularArtistHitCount(combinedList)
+    hitCount = findMostPopularArtistHitCountHelper(combinedList)
     mostPopularArtists = findMostPopularArtistsHelper(combinedList, hitCount)
     if not mostPopularArtists:
         print("Sorry, no artists found.")
@@ -184,6 +191,28 @@ def findMostPopularArtists(userMap):
         for artist in mostPopularArtists:
             print(artist)
 
+def findMostPopularArtistHitCount(userMap):
+    combinedList = putRecommendationsTogether(userMap)
+    print(findMostPopularArtistHitCountHelper(combinedList))
+
+def findMostLikesUserHelper(userMap):
+    highestLikeCount = -1
+    for user in userMap:
+        if len(userMap[user]) > highestLikeCount:
+            highestLikeCount = len(userMap[user])
+    return highestLikeCount
+
+def findMostLikesUser(userMap):
+    likeCount = findMostLikesUserHelper(userMap)
+    mostLikesUserList = []
+    for user in userMap:
+        if len(userMap[user]) == likeCount and user not in mostLikesUserList and isUserNotPrivate(user):
+            mostLikesUserList += [user]
+    if not mostLikesUserList:
+        print("Sorry, no user found.")
+    else:
+        for user in mostLikesUserList:
+            print(user)
 
 
 if __name__ == "__main__": main()
