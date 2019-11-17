@@ -32,7 +32,10 @@ def main():
             savePreferences(username, prefs, userdb, DATABASE)
 
 def loadUsers():
-    file = open(DATABASE, 'r')
+    try:
+        file = open(DATABASE, 'r')
+    except:
+        file = open(DATABASE, 'w+')
     userfile = {}
     for line in file:
         [username, artists] = line.strip().split(":")
@@ -120,7 +123,7 @@ def drop(list1, list2):
 
 def getRecommendations(currUser, prefs, userMap):
     bestUser = findBestUser(currUser, prefs, userMap)
-    if type(bestUser) is None or userMap[bestUser] is None:
+    if type(bestUser) is type(None) or userMap[bestUser] is type(None):
         print("No recommendations available at this time.")
     else:
         recommendations = drop(prefs, userMap[bestUser])
