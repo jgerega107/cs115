@@ -1,6 +1,10 @@
 DATABASE = "musicrecplus.txt"
-#main program loop
 
+"""
+Author:Jacob Gerega
+Date:11/16/19
+Pledge:I pledge my honor that I have abided by the Stevens Honor System.
+"""
 
 def main():
     userdb = loadUsers()
@@ -56,7 +60,7 @@ def readUsers(username, userdb):
             if not newPref:
                 break
             else:
-                prefs.append(newPref.strip().title())
+                prefs.append(newPref.strip())
     #existing user
     else:
         prefs = userdb[username]
@@ -83,7 +87,7 @@ def enterPreferences(username, userdb):
             savePreferences(username, prefs, userdb, DATABASE)
             break
         else:
-            prefs.append(newPref.strip().title())
+            prefs.append(newPref.strip())
     prefs.sort()
     return prefs
 
@@ -165,6 +169,7 @@ def findMostPopularArtistsHelper(artists, hits):
     for artist in artists:
         if artists.count(artist) == hits and artist not in mostPopularArtists:
             mostPopularArtists += [artist]
+    mostPopularArtists.sort()
     return mostPopularArtists
 
 
