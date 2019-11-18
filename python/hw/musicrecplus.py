@@ -47,12 +47,12 @@ def loadUsers():
 
 
 def readUsers(username, userdb):
-    newPref = ""
     prefs = []
     #new user, ask for recommendations
     if username not in userdb:
         while True:
-            newPref = input("Enter an artist that you like (Enter to finish):")
+            print("Enter an artist that you like (Enter to finish):")
+            newPref = input()
             if not newPref:
                 break
             else:
@@ -75,10 +75,10 @@ def savePreferences(userName, prefs, userMap, fileName):
 
 
 def enterPreferences(username, userdb):
-    newPref = ""
     prefs = []
     while True:
-        newPref = input("Enter an artist that you like (Enter to finish):")
+        print("Enter an artist that you like (Enter to finish):")
+        newPref = input()
         if not newPref:
             savePreferences(username, prefs, userdb, DATABASE)
             break
@@ -196,7 +196,7 @@ def findMostPopularArtistHitCount(userMap):
 def findMostLikesUserHelper(userMap):
     highestLikeCount = -1
     for user in userMap:
-        if len(userMap[user]) > highestLikeCount:
+        if len(userMap[user]) > highestLikeCount and isUserNotPrivate(user):
             highestLikeCount = len(userMap[user])
     return highestLikeCount
 
