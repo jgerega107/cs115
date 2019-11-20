@@ -45,4 +45,13 @@ class Date(object):
         dnew = Date(self.month, self.day, self.year)
         return dnew
 
+    def equals(self, d2):
+        '''Decides if self and d2 represent the same calendar date,
+        whether or not they are the in the same place in memory.'''
+        return self.year == d2.year and self.month == d2.month and \
+               self.day == d2.da
+
+    def tommorrow(self):
+        maxDay =
+
 

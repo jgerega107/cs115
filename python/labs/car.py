@@ -34,11 +34,12 @@ class Car(object):
         return self.__tank_capacity
 
     '''Write setters for mpg and tank_capacity. 2 points each'''
-
-    def setmpg(self, mpg):
+    @mpg.setter
+    def mpg(self, mpg):
         self.__mpg = mpg
 
-    def settankcapacity(self, tank_capacity):
+    @tank_capacity.setter
+    def tank_capacity(self, tank_capacity):
         self.__tank_capacity = tank_capacity
 
 
@@ -88,7 +89,7 @@ class HybridCar(Car):  # 2 points
     the methods you have already written.
     4 points'''
     def get_total_range(self):
-        return self.get_battery_range() + self.get_total_range()
+        return self.get_battery_range() + super().get_total_range()
 
     def __str__(self):
         return super().__str__() + ', battery kWh: ' + \
