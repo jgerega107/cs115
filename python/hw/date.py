@@ -146,3 +146,38 @@ class Date(object):
                 date1.yesterday()
                 counter += 1
         return counter
+
+    def dow(self):
+        pointDate = Date(11, 9, 2011)
+        difference = self.diff(pointDate)
+        mod = abs(difference) % 7
+        if difference < 0:
+            if mod == 0:
+                return "Wednesday"
+            elif mod == 6:
+                return "Thursday"
+            elif mod == 5:
+                return "Friday"
+            elif mod == 4:
+                return "Saturday"
+            elif mod == 3:
+                return "Sunday"
+            elif mod == 2:
+                return "Monday"
+            elif mod == 1:
+                return "Tuesday"
+        else:
+            if mod == 0:
+                return "Wednesday"
+            elif mod == 1:
+                return "Thursday"
+            elif mod == 2:
+                return "Friday"
+            elif mod == 3:
+                return "Saturday"
+            elif mod == 4:
+                return "Sunday"
+            elif mod == 5:
+                return "Monday"
+            elif mod == 6:
+                return "Tuesday"
