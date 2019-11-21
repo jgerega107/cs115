@@ -52,6 +52,15 @@ class Date(object):
                self.day == d2.da
 
     def tommorrow(self):
-        maxDay =
+        maxDay = DAYS_IN_MONTH[self.month]
+        maxMonth = 12
+
+        if self.month == maxMonth and self.day == maxDay:
+            self.month = 1
+            self.day = 1
+            self.year += 1
+        else:
+            self.month += 1
+            self.day = 1
 
 
