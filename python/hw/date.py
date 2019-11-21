@@ -49,18 +49,100 @@ class Date(object):
         '''Decides if self and d2 represent the same calendar date,
         whether or not they are the in the same place in memory.'''
         return self.year == d2.year and self.month == d2.month and \
-               self.day == d2.da
+               self.day == d2.day
 
-    def tommorrow(self):
-        maxDay = DAYS_IN_MONTH[self.month]
+    def tomorrow(self):
+        if self.isLeapYear() and self.month == 2:
+            maxDay = DAYS_IN_MONTH[self.month] + 1
+        else:
+            maxDay = DAYS_IN_MONTH[self.month]
         maxMonth = 12
-
         if self.month == maxMonth and self.day == maxDay:
             self.month = 1
             self.day = 1
             self.year += 1
-        else:
+        elif self.day == maxDay:
             self.month += 1
             self.day = 1
+        else:
+            self.day += 1
 
+    def yesterday(self):
+        if self.month == 1 and self.day == 1:
+            self.month = 12
+            self.day = 31
+            self.year -= 1
+        elif self.day == 1:
+            self.month -= 1
+            if self.isLeapYear() and self.month == 2:
+                self.day = DAYS_IN_MONTH[self.month] + 1
+            else:
+                self.day = DAYS_IN_MONTH[self.month]
+        else:
+            self.day -= 1
 
+    def addNDays(self, N):
+        counter = 0
+        while counter < N:
+            print(self)
+            self.tomorrow()
+            counter += 1
+        print(self)
+
+    def subNDays(self, N):
+        counter = 0
+        while counter < N:
+            print(self)
+            self.yesterday()
+            counter += 1
+        print(self)
+
+    def isBefore(self, d2):
+        if self.equals(d2):
+            return False
+        elif self.year < d2.year:
+            return True
+        elif self.year == d2.year:
+            if self.month < d2.month:
+                return True
+            elif self.month == d2.month:
+                if self.day < d2.day:
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+
+    def isAfter(self, d2):
+        if self.equals(d2):
+            return False
+        elif self.year > d2.year:
+            return True
+        elif self.year == d2.year:
+            if self.month > d2.month:
+                return True
+            elif self.month == d2.month:
+                if self.day > d2.day:
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+
+    def diff(self, d2):
+        date1 = self.copy()
+        date2 = d2.copy()
+        counter = 0
+        if date1.isBefore(date2):
+            while not date1.equals(date2):
+                date1.tomorrow()
+                counter -= 1
+        else:
+            while not date1.equals(date2):
+                date1.yesterday()
+                counter += 1
+        return counter
