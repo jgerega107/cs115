@@ -52,6 +52,7 @@ class Date(object):
                self.day == d2.day
 
     def tomorrow(self):
+        '''Brings current date one day further'''
         if self.isLeapYear() and self.month == 2:
             maxDay = DAYS_IN_MONTH[self.month] + 1
         else:
@@ -68,6 +69,7 @@ class Date(object):
             self.day += 1
 
     def yesterday(self):
+        '''Brings current date one day in past'''
         if self.month == 1 and self.day == 1:
             self.month = 12
             self.day = 31
@@ -82,6 +84,7 @@ class Date(object):
             self.day -= 1
 
     def addNDays(self, N):
+        '''Adds N days to current date'''
         counter = 0
         while counter < N:
             print(self)
@@ -90,6 +93,7 @@ class Date(object):
         print(self)
 
     def subNDays(self, N):
+        '''Removes N days from current date'''
         counter = 0
         while counter < N:
             print(self)
@@ -98,6 +102,7 @@ class Date(object):
         print(self)
 
     def isBefore(self, d2):
+        '''Returns whether date is before d2 date'''
         if self.equals(d2):
             return False
         elif self.year < d2.year:
@@ -116,6 +121,7 @@ class Date(object):
             return False
 
     def isAfter(self, d2):
+        '''Returns whether date is after d2 date'''
         if self.equals(d2):
             return False
         elif self.year > d2.year:
@@ -134,6 +140,7 @@ class Date(object):
             return False
 
     def diff(self, d2):
+        '''Calculates day difference between two dates'''
         date1 = self.copy()
         date2 = d2.copy()
         counter = 0
@@ -148,6 +155,7 @@ class Date(object):
         return counter
 
     def dow(self):
+        '''Returns string of current day'''
         pointDate = Date(11, 9, 2011)
         difference = self.diff(pointDate)
         mod = abs(difference) % 7
